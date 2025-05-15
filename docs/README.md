@@ -1,6 +1,6 @@
-# CrossDapp Passkey Portal Documentation
+# OrbitPass Documentation
 
-Welcome to the CrossDapp Passkey Portal documentation. This documentation will help you understand how to use and integrate the CrossDapp Passkey Portal into your Stellar dapp.
+Welcome to the OrbitPass documentation. This documentation will help you understand how to use and integrate OrbitPass into your Stellar dapp.
 
 ## Table of Contents
 
@@ -51,7 +51,7 @@ Welcome to the CrossDapp Passkey Portal documentation. This documentation will h
 
 ## Quick Links
 
-- [GitHub Repository](https://github.com/yourusername/crossdapp-passkey-portal)
+- [GitHub Repository](https://github.com/yourusername/orbitpass)
 - [Demo Applications](/demo)
 - [API Documentation](/docs/api)
 - [Smart Contract Documentation](/docs/smart-contracts)
@@ -65,8 +65,8 @@ We welcome contributions to our documentation! Please see our [Contributing Guid
 If you need help or have questions, please:
 
 1. Check the [Troubleshooting Guide](./troubleshooting.md)
-2. Search [GitHub Issues](https://github.com/yourusername/crossdapp-passkey-portal/issues)
-3. Join our [Discord Community](https://discord.gg/crossdapp)
+2. Search [GitHub Issues](https://github.com/yourusername/orbitpass/issues)
+3. Join our [Discord Community](https://discord.gg/orbitpass)
 
 ## License
 

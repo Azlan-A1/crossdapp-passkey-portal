@@ -10,12 +10,12 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Project Info */}
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">CrossDapp Passkey Portal</h3>
+            <h3 className="text-xl font-semibold text-white mb-4">OrbitPass</h3>
             <p className="text-gray-400 mb-4">
               Making Web3 authentication seamless and secure with passkeys.
             </p>
             <Link 
-              href="https://github.com/yourusername/crossdapp-passkey-portal"
+              href="https://github.com/yourusername/orbitpass"
               target="_blank"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-300"
             >
@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
-          <p>© 2025 CrossDapp Passkey Portal. Built with ❤️ for the Stellar ecosystem.</p>
+          <p>© 2025 OrbitPass. Built with ❤️ for the Stellar ecosystem.</p>
         </div>
       </div>
     </footer>

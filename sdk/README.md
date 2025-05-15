@@ -1,20 +1,20 @@
-# CrossDapp Passkey Portal SDK
+# OrbitPass SDK
 
-A JavaScript/TypeScript SDK for integrating CrossDapp Passkey Portal into your Stellar dapp.
+A JavaScript/TypeScript SDK for integrating OrbitPass into your Stellar dapp.
 
 ## Installation
 
 ```bash
-npm install @crossdapp/passkey-portal
+npm install @orbitpass/sdk
 ```
 
 ## Quick Start
 
 ```typescript
-import { PasskeyPortal } from '@crossdapp/passkey-portal';
+import { OrbitPass } from '@orbitpass/sdk';
 
 // Initialize the SDK
-const portal = new PasskeyPortal({
+const portal = new OrbitPass({
   network: 'testnet',
   appId: 'your-app-id'
 });
@@ -35,14 +35,14 @@ const tx = await portal.signTransaction(transaction);
 
 ## API Reference
 
-### PasskeyPortal
+### OrbitPass
 
-The main class for interacting with the CrossDapp Passkey Portal.
+The main class for interacting with OrbitPass.
 
 #### Constructor
 
 ```typescript
-new PasskeyPortal(config: {
+new OrbitPass(config: {
   network: 'testnet' | 'mainnet';
   appId: string;
   options?: {
@@ -94,7 +94,7 @@ The SDK uses a custom error class for better error handling:
 try {
   await portal.authenticate();
 } catch (error) {
-  if (error instanceof PasskeyPortalError) {
+  if (error instanceof OrbitPassError) {
     console.error(error.code, error.message);
   }
 }

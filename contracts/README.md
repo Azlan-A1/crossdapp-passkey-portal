@@ -1,6 +1,6 @@
 # Smart Contracts
 
-This directory contains the Rust smart contracts for the CrossDapp Passkey Portal, built using Soroban.
+This directory contains the Rust smart contracts for OrbitPass, built using Soroban.
 
 ## Contract Structure
 

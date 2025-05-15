@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-gray-900 to-blue-900/20">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-500/10 via-transparent to-transparent" />
@@ -29,7 +29,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400"
           >
-            CrossDapp Passkey Portal
+            OrbitPass
           </motion.h1>
           
           <motion.p 
@@ -54,7 +54,7 @@ export default function Home() {
               Try Demo
             </Link>
             <Link 
-              href="https://github.com/yourusername/crossdapp-passkey-portal"
+              href="https://github.com/Azlan-A1/crossdapp-passkey-portal"
               target="_blank"
               className="px-8 py-3 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-700 transition-all duration-300 border border-gray-700"
             >
@@ -98,6 +98,18 @@ export default function Home() {
       <TechStack />
       <Team />
       <Footer />
+      
+      {/* Test section for scrolling */}
+      <section className="h-[2000px] bg-gradient-to-b from-gray-900 to-gray-800">
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <h2 className="text-2xl font-bold text-center text-gray-400">
+            Scroll Test Section
+          </h2>
+          <p className="text-center text-gray-500 mt-4">
+            This section is for testing the navbar's scroll behavior
+          </p>
+        </div>
+      </section>
     </main>
   );
 }

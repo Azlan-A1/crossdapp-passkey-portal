@@ -32,7 +32,7 @@ const techStacks = [
 
 export default function TechStack() {
   return (
-    <section className="py-24 px-4 bg-gray-900">
+    <section id="tech-stack" className="py-24 px-4 bg-gray-900">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}

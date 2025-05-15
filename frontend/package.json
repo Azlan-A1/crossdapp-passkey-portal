@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "cd frontend/contracts/orbitpass/contracts/orbitpass && cargo test",
+    "verify-cargo": "cargo --version"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.3",

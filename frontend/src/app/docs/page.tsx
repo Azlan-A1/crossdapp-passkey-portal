@@ -9,7 +9,7 @@ export default function Docs() {
             Technical Documentation
           </h1>
           <p className="text-gray-300">
-            Learn how CrossDapp Passkey Portal works and how to integrate it into your dapp
+            Learn how OrbitPass works and how to integrate it into your dapp
           </p>
         </div>
 
@@ -17,7 +17,7 @@ export default function Docs() {
           <section className="bg-gray-800/50 rounded-2xl border border-gray-700 p-8">
             <h2 className="text-2xl font-semibold mb-4 text-white">Overview</h2>
             <p className="text-gray-300 mb-4">
-              CrossDapp Passkey Portal is a revolutionary authentication solution that combines
+              OrbitPass is a revolutionary authentication solution that combines
               device-native passkeys with Stellar's smart contract capabilities to create a
               seamless, secure, and interoperable authentication system.
             </p>
@@ -49,15 +49,15 @@ export default function Docs() {
               <div>
                 <h3 className="text-lg font-semibold text-white mb-2">1. Install SDK</h3>
                 <pre className="bg-gray-900 p-4 rounded-lg text-gray-300 overflow-x-auto">
-                  npm install @crossdapp/passkey-portal
+                  npm install @orbitpass/sdk
                 </pre>
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white mb-2">2. Initialize Client</h3>
                 <pre className="bg-gray-900 p-4 rounded-lg text-gray-300 overflow-x-auto">
-                  {`import { PasskeyPortal } from '@crossdapp/passkey-portal';
+                  {`import { OrbitPass } from '@orbitpass/sdk';
 
-const portal = new PasskeyPortal({
+const portal = new OrbitPass({
   network: 'testnet',
   appId: 'your-app-id'
 });`}
@@ -85,7 +85,7 @@ const tx = await portal.signTransaction(transaction);`}
             </p>
             <div className="mt-6">
               <Link 
-                href="https://github.com/yourusername/crossdapp-passkey-portal/tree/main/contracts"
+                href="https://github.com/yourusername/orbitpass/tree/main/contracts"
                 target="_blank"
                 className="inline-block px-6 py-3 rounded-full bg-purple-500 text-white hover:bg-purple-600 transition-colors duration-300"
               >

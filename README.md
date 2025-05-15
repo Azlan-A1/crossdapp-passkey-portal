@@ -21,7 +21,7 @@ A revolutionary authentication solution for the Stellar ecosystem that combines 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/crossdapp-passkey-portal.git
+   git clone https://github.com/Azlan-A1/crossdapp-passkey-portal.git
    cd crossdapp-passkey-portal
    ```
 
@@ -107,5 +107,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- Project Link: [https://github.com/yourusername/crossdapp-passkey-portal](https://github.com/yourusername/crossdapp-passkey-portal)
+- Project Link: [https://github.com/Azlan-A1/crossdapp-passkey-portal](https://github.com/Azlan-A1/crossdapp-passkey-portal)
 - Hackathon Submission: [Stellar Consensus Hackathon 2025](https://stellar.org/developers/hackathon) 
