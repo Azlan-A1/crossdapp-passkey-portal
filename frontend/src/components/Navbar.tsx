@@ -69,8 +69,7 @@ export default function Navbar() {
         }`}>
           {/* Logo */}
           <Link 
-            href="#home"
-            onClick={(e) => handleClick(e, '#home')}
+            href="/"
             className={`font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 ${
               isScrolled ? 'text-lg' : 'text-xl'
             }`}

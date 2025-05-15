@@ -8,13 +8,15 @@
     "start": "next start",
     "lint": "next lint",
     "test": "cd frontend/contracts/orbitpass/contracts/orbitpass && cargo test",
-    "verify-cargo": "cargo --version"
+    "verify-cargo": "cargo --version",
+    "capture-screenshots": "node scripts/capture-screenshots.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.3",
     "@heroicons/react": "^2.2.0",
     "framer-motion": "^12.11.3",
     "next": "15.3.2",
+    "node-fetch": "^3.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

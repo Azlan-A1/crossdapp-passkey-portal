@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { PasskeyAuth } from '@/lib/passkey';
+import { create, get } from '@github/webauthn-json';
 
 const LOCAL_STORAGE_KEY = 'orbitpass_demo_user';
 
@@ -18,6 +19,8 @@ export default function DemoPage() {
   const [username, setUsername] = useState('');
   const [registered, setRegistered] = useState(false);
   const [credentialId, setCredentialId] = useState<string | null>(null);
+  const [registerResult, setRegisterResult] = useState<string | null>(null);
+  const [authResult, setAuthResult] = useState<string | null>(null);
 
   const demoDapps = [
     { id: 'stellar-swap', name: 'Stellar Swap', description: 'Token exchange platform' },
@@ -43,35 +46,48 @@ export default function DemoPage() {
   }, []);
 
   const handleRegister = async () => {
-    setRegisterError(null);
-    setRegistering(true);
     try {
-      if (!username) {
-        setRegisterError('Please enter a username.');
-        setRegistering(false);
-        return;
-      }
-      const result = await PasskeyAuth.register(username);
+      const options = {
+        publicKey: {
+          challenge: 'demo-challenge',
+          rp: { name: 'OrbitPass Demo' },
+          user: {
+            id: 'ZGVtby11c2Vy', // base64url for 'demo-user'
+            name: 'demo@orbitpass.com',
+            displayName: 'Demo User',
+          },
+          pubKeyCredParams: [{ type: 'public-key' as const, alg: -7 }],
+          authenticatorSelection: { userVerification: 'preferred' as const },
+          timeout: 60000,
+          attestation: 'none' as const,
+        }
+      };
+      const credential = await create(options);
+      setRegisterResult('Registration successful!');
       setRegistered(true);
-      setCredentialId(result.credentialId);
-      // Store in localStorage
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ username, credentialId: result.credentialId }));
+      setCredentialId(credential.id);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ username, credentialId: credential.id }));
       setStep(2);
-    } catch (error) {
-      setRegisterError(error instanceof Error ? error.message : 'Registration failed');
-    } finally {
-      setRegistering(false);
+    } catch (e) {
+      setRegisterResult('Registration failed: ' + (e as Error).message);
     }
   };
 
   const handleAuthenticate = async () => {
     try {
-      setAuthError(null);
-      const result = await PasskeyAuth.authenticate();
+      const options = {
+        publicKey: {
+          challenge: 'demo-challenge',
+          timeout: 60000,
+          userVerification: 'preferred' as const,
+        }
+      };
+      const assertion = await get(options);
+      setAuthResult('Authentication successful!');
       setIsAuthenticated(true);
       setStep(3);
-    } catch (error) {
-      setAuthError(error instanceof Error ? error.message : 'Authentication failed');
+    } catch (e) {
+      setAuthResult('Authentication failed: ' + (e as Error).message);
     }
   };
 
@@ -313,6 +329,10 @@ export default function DemoPage() {
               </div>
             </motion.div>
           )}
+        </div>
+        <div className="mt-6">
+          {registerResult && <div className="mb-2 text-green-400">{registerResult}</div>}
+          {authResult && <div className="text-blue-400">{authResult}</div>}
         </div>
       </div>
     </div>
