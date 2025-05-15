@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { PasskeyAuth } from '@/lib/passkey';
-import { create, get } from '@github/webauthn-json';
 
 const LOCAL_STORAGE_KEY = 'orbitpass_demo_user';
 
@@ -46,57 +45,32 @@ export default function DemoPage() {
   }, []);
 
   const handleRegister = async () => {
+    setRegistering(true);
+    setRegisterError(null);
     try {
-      const options = {
-        publicKey: {
-          challenge: 'demo-challenge',
-          rp: { name: 'OrbitPass Demo' },
-          user: {
-            id: 'ZGVtby11c2Vy', // base64url for 'demo-user'
-            name: 'demo@orbitpass.com',
-            displayName: 'Demo User',
-          },
-          pubKeyCredParams: [{ type: 'public-key' as const, alg: -7 }],
-          authenticatorSelection: { userVerification: 'preferred' as const },
-          timeout: 60000,
-          attestation: 'none' as const,
-        }
-      };
-      const credential = await create(options);
+      const { credentialId } = await PasskeyAuth.register(username);
       setRegisterResult('Registration successful!');
       setRegistered(true);
-      setCredentialId(credential.id);
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ username, credentialId: credential.id }));
+      setCredentialId(credentialId);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ username, credentialId }));
       setStep(2);
     } catch (e) {
-      setRegisterResult('Registration failed: ' + (e as Error).message);
+      setRegisterError('Registration failed: ' + (e as Error).message);
+    } finally {
+      setRegistering(false);
     }
   };
 
   const handleAuthenticate = async () => {
+    setAuthError(null);
     try {
-      const options = {
-        publicKey: {
-          challenge: 'demo-challenge',
-          timeout: 60000,
-          userVerification: 'preferred' as const,
-        }
-      };
-      const assertion = await get(options);
+      await PasskeyAuth.authenticate();
       setAuthResult('Authentication successful!');
       setIsAuthenticated(true);
       setStep(3);
     } catch (e) {
-      setAuthResult('Authentication failed: ' + (e as Error).message);
+      setAuthError('Authentication failed: ' + (e as Error).message);
     }
-  };
-
-  const handleAuthorizeDapp = (dappId: string) => {
-    setAuthorizedDapps(prev => [...prev, dappId]);
-  };
-
-  const handleRevokeDapp = (dappId: string) => {
-    setAuthorizedDapps(prev => prev.filter(id => id !== dappId));
   };
 
   const handleClear = () => {
@@ -107,6 +81,14 @@ export default function DemoPage() {
     setIsAuthenticated(false);
     setStep(1);
     setAuthorizedDapps([]);
+  };
+
+  const handleAuthorizeDapp = (dappId: string) => {
+    setAuthorizedDapps(prev => [...prev, dappId]);
+  };
+
+  const handleRevokeDapp = (dappId: string) => {
+    setAuthorizedDapps(prev => prev.filter(id => id !== dappId));
   };
 
   return (
@@ -198,6 +180,9 @@ export default function DemoPage() {
                   </div>
                 </>
               )}
+              {registerResult && (
+                <div className="text-green-400 mb-4">{registerResult}</div>
+              )}
             </motion.div>
           )}
 
@@ -259,73 +244,28 @@ export default function DemoPage() {
               <p className="text-gray-400 mb-8">
                 Select which dapps you want to authorize with your passkey
               </p>
-              <div className="grid gap-4">
+              <div className="grid gap-6 md:grid-cols-2">
                 {demoDapps.map(dapp => (
-                  <div
-                    key={dapp.id}
-                    className="bg-gray-700 rounded-lg p-4 flex items-center justify-between"
-                  >
-                    <div>
-                      <h3 className="text-white font-medium">{dapp.name}</h3>
-                      <p className="text-gray-400 text-sm">{dapp.description}</p>
-                    </div>
+                  <div key={dapp.id} className="bg-gray-700 rounded-lg p-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">{dapp.name}</h3>
+                    <p className="text-gray-400 mb-4">{dapp.description}</p>
                     {authorizedDapps.includes(dapp.id) ? (
                       <button
                         onClick={() => handleRevokeDapp(dapp.id)}
-                        className="px-4 py-2 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                        className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
                       >
                         Revoke
                       </button>
                     ) : (
                       <button
                         onClick={() => handleAuthorizeDapp(dapp.id)}
-                        className="px-4 py-2 rounded-full bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors"
+                        className="px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
                       >
                         Authorize
                       </button>
                     )}
                   </div>
                 ))}
-              </div>
-              {/* Next Step Button */}
-              {authorizedDapps.length > 0 && (
-                <div className="mt-8 text-center">
-                  <button
-                    onClick={() => setStep(4)}
-                    className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold hover:from-purple-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
-                  >
-                    Continue to Demo Apps
-                  </button>
-                </div>
-              )}
-            </motion.div>
-          )}
-
-          {/* Step 4: Demo Apps */}
-          {step === 4 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <h2 className="text-2xl font-semibold text-white mb-6">Step 4: Try Demo Apps</h2>
-              <p className="text-gray-400 mb-8">
-                You're now authenticated and authorized! Try out the demo apps:
-              </p>
-              <div className="grid gap-6 md:grid-cols-2">
-                <Link
-                  href="/demo/token-swap"
-                  className="bg-gray-700 rounded-lg p-6 hover:bg-gray-600 transition-colors"
-                >
-                  <h3 className="text-xl font-semibold text-white mb-2">Token Swap Demo</h3>
-                  <p className="text-gray-400">Try swapping tokens with passkey authentication</p>
-                </Link>
-                <Link
-                  href="/demo/tipping"
-                  className="bg-gray-700 rounded-lg p-6 hover:bg-gray-600 transition-colors"
-                >
-                  <h3 className="text-xl font-semibold text-white mb-2">Tipping Demo</h3>
-                  <p className="text-gray-400">Send tips with passkey authentication</p>
-                </Link>
               </div>
             </motion.div>
           )}

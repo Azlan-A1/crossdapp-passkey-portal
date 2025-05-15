@@ -1,5 +1,14 @@
 // WebAuthn/Passkey Authentication Utilities
 
+import { startRegistration, startAuthentication } from "@simplewebauthn/browser";
+import type { 
+  AuthenticationResponseJSON, 
+  AuthenticatorAttestationResponseJSON,
+  PublicKeyCredentialCreationOptionsJSON,
+  PublicKeyCredentialRequestOptionsJSON,
+  UserVerificationRequirement
+} from "@simplewebauthn/types";
+
 interface PublicKeyCredentialCreationOptions {
   challenge: BufferSource;
   rp: {
@@ -60,95 +69,62 @@ export class PasskeyAuth {
     return bytes.buffer;
   }
 
-  static async register(username: string): Promise<{
-    credentialId: string;
-    publicKey: string;
-  }> {
-    const challenge = this.generateChallenge();
-    
-    const options: PublicKeyCredentialCreationOptions = {
-      challenge,
-      rp: {
-        name: 'OrbitPass',
-        id: window.location.hostname,
-      },
-      user: {
-        id: crypto.getRandomValues(new Uint8Array(16)),
-        name: username,
-        displayName: username,
-      },
-      pubKeyCredParams: [
-        { type: 'public-key', alg: -7 }, // ES256
-        { type: 'public-key', alg: -257 }, // RS256
-      ],
-      timeout: 60000,
-      attestation: 'none',
-      authenticatorSelection: {
-        authenticatorAttachment: 'platform',
-        requireResidentKey: true,
-        userVerification: 'preferred',
-      },
-    };
-
-    try {
-      const credential = await navigator.credentials.create({
-        publicKey: options,
-      }) as PublicKeyCredential;
-
-      if (!credential) {
-        throw new Error('Failed to create credential');
-      }
-
-      const response = credential.response as AuthenticatorAttestationResponse;
-      
-      return {
-        credentialId: this.base64UrlEncode(credential.rawId),
-        publicKey: this.base64UrlEncode(response.getPublicKey()!),
-      };
-    } catch (error) {
-      console.error('Registration error:', error);
-      throw error;
-    }
-  }
-
-  static async authenticate(): Promise<{
-    credentialId: string;
-    signature: string;
-    userHandle: string;
-  }> {
-    const challenge = this.generateChallenge();
-
-    const options: PublicKeyCredentialRequestOptions = {
-      challenge,
-      rpId: window.location.hostname,
-      allowCredentials: [], // Allow any credential
-      userVerification: 'preferred',
-      timeout: 60000,
-    };
-
-    try {
-      const credential = await navigator.credentials.get({
-        publicKey: options,
-      }) as PublicKeyCredential;
-
-      if (!credential) {
-        throw new Error('Failed to get credential');
-      }
-
-      const response = credential.response as AuthenticatorAssertionResponse;
-
-      return {
-        credentialId: this.base64UrlEncode(credential.rawId),
-        signature: this.base64UrlEncode(response.signature),
-        userHandle: this.base64UrlEncode(response.userHandle!),
-      };
-    } catch (error) {
-      console.error('Authentication error:', error);
-      throw error;
-    }
-  }
-
   static isSupported(): boolean {
     return window.PublicKeyCredential !== undefined;
+  }
+
+  static async register(username: string): Promise<{ credentialId: string }> {
+    try {
+      const userId = crypto.getRandomValues(new Uint8Array(16));
+      const options = {
+        optionsJSON: {
+          challenge: "stellaristhebetterblockchain", // In production, this should be a random challenge
+          rp: {
+            name: "OrbitPass Demo",
+            id: window.location.hostname,
+          },
+          user: {
+            id: btoa(String.fromCharCode(...userId)),
+            name: username,
+            displayName: username,
+          },
+          pubKeyCredParams: [
+            { type: "public-key", alg: -7 }, // ES256
+            { type: "public-key", alg: -257 }, // RS256
+          ],
+          timeout: 60000,
+          attestation: "none",
+          authenticatorSelection: {
+            authenticatorAttachment: "platform",
+            userVerification: "preferred" as UserVerificationRequirement,
+            requireResidentKey: true,
+          },
+        } as PublicKeyCredentialCreationOptionsJSON
+      };
+
+      const credential = await startRegistration(options);
+      return { credentialId: credential.id };
+    } catch (error) {
+      console.error("Registration error:", error);
+      throw error;
+    }
+  }
+
+  static async authenticate(): Promise<void> {
+    try {
+      const options = {
+        optionsJSON: {
+          challenge: "stellaristhebetterblockchain", // In production, this should be a random challenge
+          rpID: window.location.hostname,
+          userVerification: "preferred" as UserVerificationRequirement,
+          timeout: 60000,
+        } as PublicKeyCredentialRequestOptionsJSON
+      };
+
+      await startAuthentication(options);
+    } catch (error) {
+      console.error("Authentication error:", error);
+      throw error;
+    }
   }
 } 

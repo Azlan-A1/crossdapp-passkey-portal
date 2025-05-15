@@ -48,6 +48,23 @@ crossdapp-passkey-portal/
 └── docs/            # Technical documentation
 ```
 
+## 🖼️ Screenshots
+
+### OrbitPass landing page
+![OrbitPass landing page](frontend/public/screenshots/landing.png)
+
+### Registering a passkey with OrbitPass
+![Registering a passkey with OrbitPass](frontend/public/screenshots/register.png)
+
+### Authenticating with a passkey
+![Authenticating with a passkey](frontend/public/screenshots/authenticate.png)
+
+### Successful passkey registration and authentication
+![Successful passkey registration and authentication](frontend/public/screenshots/success.png)
+
+### Error handling in OrbitPass
+![Error handling in OrbitPass](frontend/public/screenshots/error.png)
+
 ## 🔧 Development
 
 ### Frontend
