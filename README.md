@@ -1,128 +1,119 @@
-# CrossDapp Passkey Portal
+# OrbitPass
 
-A revolutionary authentication solution for the Stellar ecosystem that combines device-native passkeys with smart contract capabilities to create a seamless, secure, and interoperable authentication system.
+OrbitPass is a revolutionary authentication solution that combines device-native passkeys with Stellar's smart contract capabilities to create a seamless, secure, and interoperable authentication system. It also supports Polkadot wallet integration for cross-chain identity management.
 
-## 🌟 Features
+## Features
 
-- **One Passkey, Every Dapp**: Use a single passkey across all Stellar dapps
-- **Smart Wallet Integration**: Automated transaction handling with smart contracts
-- **Seamless UX**: Web2-like experience with Web3 security
-- **Cross-dapp Interoperability**: Move between dapps without re-authentication
+- 🔐 **Device-Native Passkeys**: Secure authentication using WebAuthn standards
+- 🌟 **Stellar Smart Contracts**: Automated transaction execution and policy enforcement
+- 🔄 **Cross-dapp Authentication**: Single passkey for all Stellar dapps
+- 🔗 **Polkadot Integration**: Connect and manage Polkadot wallets
+- 🎯 **Smart Wallet Policies**: Granular permission controls and automated rules
+- 📱 **Responsive Design**: Beautiful UI with dark mode support
 
-## 🚀 Getting Started
+## Tech Stack
+
+- **Frontend**: Next.js, TailwindCSS, Framer Motion
+- **Authentication**: WebAuthn, Passkey Kit
+- **Blockchain**: Stellar SDK, Soroban Smart Contracts
+- **Cross-chain**: Polkadot.js Extension
+- **Deployment**: Launchtube
+
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ and npm
-- Rust and Cargo (for smart contract development)
-- Stellar Testnet account
+- Node.js 18+
+- pnpm or npm
+- Polkadot.js Extension (for Polkadot features)
 
 ### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/Azlan-A1/crossdapp-passkey-portal.git
-   cd crossdapp-passkey-portal
-   ```
+```bash
+git clone https://github.com/Azlan-A1/crossdapp-passkey-portal.git
+cd crossdapp-passkey-portal
+```
 
-2. Install frontend dependencies:
-   ```bash
-   cd frontend
-   npm install
-   ```
+2. Install dependencies:
+```bash
+cd frontend
+npm install
+```
 
 3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🏗️ Project Structure
-
-```
-crossdapp-passkey-portal/
-├── contracts/        # Rust Soroban smart contracts
-├── frontend/         # Next.js frontend application
-├── sdk/             # JavaScript SDK for dapp integration
-└── docs/            # Technical documentation
+```bash
+npm run dev
 ```
 
-## 🖼️ Screenshots
+4. Visit `http://localhost:3000` in your browser
 
-### OrbitPass landing page
-![OrbitPass landing page](frontend/public/screenshots/landing.png)
+## Smart Contracts
 
-### Registering a passkey with OrbitPass
-![Registering a passkey with OrbitPass](frontend/public/screenshots/register.png)
+### Stellar Testnet Deployment
 
-### Authenticating with a passkey
-![Authenticating with a passkey](frontend/public/screenshots/authenticate.png)
+- **Contract ID**: `CCXZ7NJUF2O5WVL57JJ5HJ46Q23XBYW6K6VMFI2Q2Z7Q4U4S6E2VXWX4`
+- **Network**: Stellar Testnet
+- **RPC Endpoint**: https://soroban-testnet.stellar.org
+- **Explorer**: https://soroban-testnet.stellar.org/explorer/contract/CCXZ7NJUF2O5WVL57JJ5HJ46Q23XBYW6K6VMFI2Q2Z7Q4U4S6E2VXWX4
 
-### Successful passkey registration and authentication
-![Successful passkey registration and authentication](frontend/public/screenshots/success.png)
+### Contract Features
 
-### Error handling in OrbitPass
-![Error handling in OrbitPass](frontend/public/screenshots/error.png)
-
-## 🔧 Development
-
-### Frontend
-
-The frontend is built with Next.js 14 and TailwindCSS, featuring:
-- Dark mode by default
-- Responsive design
-- Framer Motion animations
-- Modern UI components
-
-### Smart Contracts
-
-The smart contracts are written in Rust using Soroban:
-- Passkey vault management
+- Passkey registration and verification
 - Smart wallet policies
-- Cross-dapp consent ledger
-- Escrow logic
+- Cross-dapp consent management
+- Escrow functionality
 
-### SDK
+## Documentation
 
-The JavaScript SDK provides easy integration for dapp developers:
-- Passkey authentication
-- Transaction signing
-- Smart wallet management
-- Cross-dapp communication
+- [Smart Contract Documentation](/docs/contracts/README.md)
+- [Integration Guide](/docs/integration/README.md)
+- [API Reference](/docs/api/README.md)
 
-## 📚 Documentation
+## Polkadot Integration
 
-- [Technical Documentation](/docs)
-- [API Reference](/docs/api)
-- [Smart Contract Guide](/docs/contracts)
-- [Integration Guide](/docs/integration)
+1. Install the [Polkadot.js Extension](https://polkadot.js.org/extension/)
+2. Create or import a Polkadot account
+3. Visit the profile page to link your Polkadot wallet
 
-## 🎯 Demo Applications
+## Development
 
-- [Token Swap Demo](/demo/token-swap)
-- [Tipping Demo](/demo/tipping)
+### Project Structure
 
-## 🤝 Contributing
+```
+frontend/
+├── src/
+│   ├── app/              # Next.js app directory
+│   ├── components/       # React components
+│   ├── lib/             # Utilities and hooks
+│   └── contracts/       # Soroban contracts
+```
+
+### Key Components
+
+- `PasskeyAuth`: Handles WebAuthn authentication
+- `usePolkadotWallet`: Manages Polkadot wallet connection
+- `OrbitPass`: Smart contract for identity management
+
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Stellar Development Foundation
-- Soroban Team
-- WebAuthn Community
-- All contributors and supporters
+- Polkadot Network
+- WebAuthn Working Group
 
-## 📞 Contact
+## Contact
 
 - Project Link: [https://github.com/Azlan-A1/crossdapp-passkey-portal](https://github.com/Azlan-A1/crossdapp-passkey-portal)
 - Hackathon Submission: [Stellar Consensus Hackathon 2025](https://stellar.org/developers/hackathon) 

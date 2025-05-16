@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 const navItems = [
-  { name: 'Home', href: '#home' },
+  { name: 'Docs', href: '/docs' },
   { name: 'Problem & Solution', href: '#problem-solution' },
   { name: 'Features', href: '#features' },
   { name: 'Demos', href: '#demos' },
