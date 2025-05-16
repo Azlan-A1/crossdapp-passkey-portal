@@ -44,9 +44,23 @@ export default function Demos() {
               className="bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden"
             >
               <div className="aspect-video relative bg-gray-700">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                  Screenshot Placeholder
-                </div>
+                {index === 0 ? (
+                  <Image
+                    src="/screenshots/landing.png"
+                    alt="Token Swap Dapp Screenshot"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="object-cover"
+                  />
+                ) : (
+                  <Image
+                    src="/screenshots/tip.png"
+                    alt="Tipping Dapp Screenshot"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="object-cover"
+                  />
+                )}
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-semibold mb-4 text-white">{demo.title}</h3>
