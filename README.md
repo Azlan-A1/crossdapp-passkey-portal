@@ -7,6 +7,9 @@ https://gyazo.com/bb5167f946511abd88c3934fc44883ed
 https://gyazo.com/102787f282e2c86454edf6a9993676bc
 https://gyazo.com/89fe829bb6e548f1377f2470d4519ba4
 
+Testnet: 
+https://stellar.expert/explorer/testnet/account/GDVJFVUTBD6NGLD7V7EUJH2HQJUPZ3XXPS6C555ALB4AC3FMKEJU73AU
+
 OrbitPass is a revolutionary authentication solution that combines device-native passkeys with Stellar's smart contract capabilities to create a seamless, secure, and interoperable authentication system. It also supports Polkadot wallet integration for cross-chain identity management.
 
 ## Features
@@ -25,6 +28,34 @@ OrbitPass is a revolutionary authentication solution that combines device-native
 - **Blockchain**: Stellar SDK, Soroban Smart Contracts
 - **Cross-chain**: Polkadot.js Extension
 - **Deployment**: Launchtube
+
+  
+1. Stellar SDK
+Status: ✅ Integrated
+Details:
+Used for interacting with the Stellar blockchain and Soroban smart contracts.
+Referenced in your contract integration and frontend logic.
+
+3. Passkeys Kit
+Status: ✅ Integrated
+Details:
+Used for biometric wallet creation and passkey-based authentication.
+The onboarding flow (/onboard-from-polkadot) and other passkey logic use @stellar/passkey-kit (or your custom passkey logic).
+Passkey registration and authentication are part of the user flow.
+
+4. Launchtube
+Status: ✅ Integrated
+Details:
+Used for deploying Soroban contracts to the Stellar testnet.
+Your documentation and contract README include Launchtube deployment instructions.
+Contract is deployed to the testnet, and the contract ID is provided in the README.
+
+5. Deployed Contracts to Stellar Testnet
+Status: ✅ Done
+Details:
+Contract ID and testnet explorer links are present in your README and contract docs.
+
+
 
 ## Getting Started
 
